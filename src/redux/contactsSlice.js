@@ -1,24 +1,38 @@
 import { createSlice } from '@reduxjs/toolkit'
-
-const initialState =  [
-  {id: 'id-1', name: 'Rosie Simpson', number: '459-12-56'},
-  {id: 'id-2', name: 'Hermione Kline', number: '443-89-12'},
-  {id: 'id-3', name: 'Eden Clements', number: '645-17-79'},
-  {id: 'id-4', name: 'Annie Copeland', number: '227-91-26'},
-] 
+import axios from 'axios';
 
 const contactsSlice = createSlice({
 name: 'contacts',
-initialState,
-reducers: {
-  addContact: (state, action) => {
+  initialState: {
+    initialState: [],
+    Loading: false,
+error: false,
+  },
+  
+  reducers: {
+    fetchPending() { },
+    fetchSuccess() { },
+    fetchError() { },
+  /*addContact: (state, action) => {
     return [...state, action.payload]
   },
   deleteContact: (state, action ) => {
     return state.filter(contact => contact.id !== action.payload);
-  },
+  },*/
 },
 })
 
-const { addContact, deleteContact } = contactsSlice.actions;
-export default { contactsReduser: contactsSlice.reducer, addContact, deleteContact };
+const { fetchPending, fetchSuccess, fetchError } = contactsSlice.actions;
+export const fetchContacts = () => async (dispatch) => {
+  try {
+    dispatch(fetchPending());
+    const responce = await axios.get("https://65d7621827d9a3bc1d7ae651.mockapi.io/contacts");
+    dispatch(fetchSuccess(responce.data));
+  } catch (error) {
+    dispatch(fetchError());
+  }
+};
+
+//export default contactsSlice.reducer;
+
+export default { contactsReduser: contactsSlice.reducer };
