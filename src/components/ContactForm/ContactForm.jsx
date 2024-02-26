@@ -5,7 +5,7 @@ import { useId } from 'react';
 import { nanoid } from 'nanoid';
 import { BsFillPersonPlusFill } from 'react-icons/bs';
 import { useDispatch } from 'react-redux';
-import addContact from '../../redux/contactsSlice';
+import { addContact } from '../../redux/operations';
 
 const contactSchema = Yup.object().shape({
   name: Yup.string().min(3, 'Too Short!').max(50, 'Too Long!').required('Required'),
@@ -26,7 +26,7 @@ const ContactForm = () => {
       validationSchema={contactSchema}
       onSubmit={(values, actions) => {
         console.log(values);
-        dispatch(addContact.addContact({ id: nanoid(), ...values }));
+        dispatch(addContact({ id: nanoid(), ...values }));
         actions.resetForm();
       }}
     >

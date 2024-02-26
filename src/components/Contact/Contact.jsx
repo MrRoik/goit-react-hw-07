@@ -3,12 +3,12 @@ import { BsFillPersonFill } from 'react-icons/bs';
 import { BsFillTelephoneFill } from 'react-icons/bs';
 import { BsFillPersonDashFill } from 'react-icons/bs';
 import { useDispatch } from 'react-redux';
-import deleteContact from '../../redux/contactsSlice';
+import { deleteContact } from '../../redux/operations';
 
 const Contact = ({ item }) => {
   const { id, name, phone } = item;
   const dispatch = useDispatch();
-  const handleDel = () => dispatch(deleteContact.deleteContact(id));
+  const handleDel = () => dispatch(deleteContact(id));
 
   return (
     <>
