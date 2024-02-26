@@ -3,8 +3,6 @@ import { createSlice } from '@reduxjs/toolkit';
 const filtersSlice = createSlice({
   name: 'filters',
   initialState: '',
-  Loading: false,
-error: false,
   reducers: {
     filterContacts: (state, action) => {
       return action.payload;
